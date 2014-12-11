@@ -45,3 +45,5 @@ $ harp compile; gulp dist
 ```
 
 ## Chagelog
+
+2014.12.11 Add gulp-imagemin
