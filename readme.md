@@ -8,30 +8,40 @@ harpJS + browser-sync + gulp + Bootstrap3
 
 /Bs3harp
 
-	$ npm install
+```
+$ npm install
+```
 
 ### Run server with Livereload
 
-/Bs3harp/public
+/Bs3harp
 
-	$ harp server
+```
+$ harp server
+```
 
 /Bs3harp
 
-	$ npm start
+```
+$ npm start
+```
 
 ### Compile source 
 
 Compile source in /Bs3harp/public/www 
 
-/Bs3harp/public
+/Bs3harp
 
-	$ harp compile
+```
+$ harp compile
+```
 
 Compile source non-minify-html in /Bs3harp/dist
 
 /Bs3harp
 
-	$ gulp
+```
+$ harp compile; gulp dist
+```
 
 ## Chagelog

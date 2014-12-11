@@ -1,14 +1,14 @@
 {
   "index": {
-    "title": "Home",
+    "pagename": "Home",
     "date": "2013-02-28"
   },
   "about": {
-    "title": "About",
+    "pagename": "About",
     "date": "2013-02-28"
   },
   "contact": {
-    "title": "Contact",
+    "pagename": "Contact",
     "date": "2013-03-04"
   }
 }

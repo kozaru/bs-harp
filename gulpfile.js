@@ -1,13 +1,17 @@
 var gulp = require('gulp');
 var copy = require('gulp-copy');
 var prettify = require('gulp-html-prettify');
+var imagemin = require('gulp-imagemin');
+var newer = require('gulp-newer');
 var runSequence = require('run-sequence');
 
 var config = {
-  'source': './public/www/**',
-  'sourceHTML': './public/www/*.html',
+  'source': './www/**',
+  'sourceHTML': './www/*.html',
+  'sourceIMG': './www/images/**',
   'dist': './dist/',
   'distHTML': './dist/',
+  'distIMG': './dist/images/',
   'bsLESS': './bower/bootstrap/less/**',
   'bsJS': './bower/bootstrap/dist/js/bootstrap.js',
   'bsJSmin': './bower/bootstrap/dist/js/bootstrap.min.js',
@@ -16,20 +20,48 @@ var config = {
   'publicJS': './public/js/'
 }
 
-gulp.task('bs', function() {
-  gulp.src(config.bsLESS)
+gulp.task('bsless', function() {
+  return gulp.src(config.bsLESS)
   .pipe(gulp.dest(config.publicLESS));
-  gulp.src(config.bsJS)
-  .pipe(gulp.dest(config.publicJS));
-  gulp.src(config.bsJSmin)
-  .pipe(gulp.dest(config.publicJS));
-  gulp.src(config.bsJQUERY)
+});
+
+gulp.task('bsjs', function() {
+  return gulp.src(config.bsJS)
   .pipe(gulp.dest(config.publicJS));
 });
 
-gulp.task('copy', function() {
+gulp.task('bsjquery', function() {
+  return gulp.src(config.bsJQUERY)
+  .pipe(gulp.dest(config.publicJS));
+});
+
+gulp.task('bs', function() {
+  runSequence(
+    'bsless',
+    'bsjs',
+    'bsjquery'
+    );
+});
+
+gulp.task('copysource', function() {
   return gulp.src(config.source)
   .pipe(gulp.dest(config.dist));
+});
+
+gulp.task('copyimg', function() {
+  return gulp.src(config.sourceIMG)
+    .pipe(newer(config.distIMG))
+    .pipe(imagemin({
+      optimizationLevel: 3
+    })) // See gulp-imagemin page.
+    .pipe(gulp.dest(config.distIMG));
+});
+
+gulp.task('copy', function() {
+  runSequence(
+    'copysource',
+    'copyimg'
+    );
 });
 
 gulp.task('pretty', function() {
@@ -41,7 +73,7 @@ gulp.task('pretty', function() {
   .pipe(gulp.dest(config.distHTML))
 });
 
-gulp.task('init', function() {
+gulp.task('dist', function() {
   runSequence(
     'copy',
     'pretty'
@@ -52,4 +84,4 @@ gulp.task('watch', function() {
   gulp.watch(config.sourceHTML, ['pretty']);
 });
 
-gulp.task('default', ['init', 'watch']);
+gulp.task('default', ['dist', 'watch']);
