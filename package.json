@@ -1,0 +1,20 @@
+{
+  "name": "bs3harp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --proxy localhost:9000 --files 'public/*.jade, public/*.json, public/js/*.js, public/css/*.less'",
+    "postinstall": "bower install bootstrap && gulp bs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+      "browser-sync": "^1.7.2",
+      "gulp": "^3.8.10",
+      "gulp-copy": "0.0.2",
+      "gulp-html-prettify": "0.0.1",
+      "run-sequence": "^1.0.2"
+    }
+}
