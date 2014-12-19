@@ -24,21 +24,21 @@ $ npm install
 
 ### Start using LiveReload
 
-Start local server in Harp,
+Start http://localhost:9000
 
 ```
 $ harp server
 ```
 
-and start proxying it in browser-sync.
+and start proxying: http://localhost:9000 and http://localhost:3000
 
 ```
 $ npm start
 ```
 
-### Compile source 
+### Compile source
 
-Compile source in /public/www 
+Compile source in /public/www
 
 ```
 $ harp compile
