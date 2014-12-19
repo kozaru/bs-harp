@@ -4,18 +4,20 @@ Harp + browser-sync + Bootstrap
 
 ## Install
 
-1. Node.js
+### 1. Node.js
+
 [Node.js](http://nodejs.org/)
 
-2. Harp
+### 2. Harp
+
 [Harp](http://harpjs.com/) Harp, the static web server with built-in preprocessing
 ```
 $ sudo npm install -g harp
 ```
 
-3. Download Bs-Harp or git clone Bs-Harp
+### 3. Download Bs-Harp or git clone Bs-Harp
 
-4. Install some node-module
+### 4. Install some node-module
 ```
 $ npm install
 ```
