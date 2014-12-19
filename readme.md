@@ -10,7 +10,7 @@ Harp + browser-sync + Bootstrap
 
 ### 2. Harp
 
-[Harp](http://harpjs.com/) Harp, the static web server with built-in preprocessing
+[Harp](http://harpjs.com/) - the static web server with built-in preprocessing
 ```
 $ sudo npm install -g harp
 ```
