@@ -44,6 +44,13 @@ Compile source non-minify-html in /Bs3harp/dist
 $ harp compile; gulp dist
 ```
 
+### Attention
+
+if you change bootstrap styles, you copy these files to css directory , rename '_bootstrap.less' and '_variable.less' and fix other less files @import path.
+
+- bootstrap.less
+- variable.less
+
 ## Chagelog
 
 2014.12.11 Add gulp-imagemin
