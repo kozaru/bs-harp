@@ -1,26 +1,36 @@
-# Bs3harp
+# Bs-Harp
 
-harpJS + browser-sync + gulp + Bootstrap3
+Harp + browser-sync + Bootstrap
 
-## Usage
+## Install
 
-### Install gulpjs and some dependencies.
+1. Node.js
+[Node.js](http://nodejs.org/)
 
-/Bs3harp
+2. Harp
+[Harp](http://harpjs.com/) Harp, the static web server with built-in preprocessing
+```
+$ sudo npm install -g harp
+```
 
+3. Download Bs-Harp or git clone Bs-Harp
+
+4. Install some node-module
 ```
 $ npm install
 ```
 
-### Run server with Livereload
+## Usage
 
-/Bs3harp
+### Start using LiveReload
+
+Start local server in Harp,
 
 ```
 $ harp server
 ```
 
-/Bs3harp
+and start proxying it in browser-sync.
 
 ```
 $ npm start
@@ -28,29 +38,19 @@ $ npm start
 
 ### Compile source 
 
-Compile source in /Bs3harp/public/www 
-
-/Bs3harp
+Compile source in /public/www 
 
 ```
 $ harp compile
 ```
 
-Compile source non-minify-html in /Bs3harp/dist
-
-/Bs3harp
+Compile source non-minify-html in /dist
 
 ```
-$ harp compile; gulp dist
+$ gulp dist
 ```
 
-### Attention
-
-if you change bootstrap styles, you copy these files to css directory , rename '_bootstrap.less' and '_variable.less' and fix other less files @import path.
-
-- bootstrap.less
-- variable.less
-
-## Chagelog
-
-2014.12.11 Add gulp-imagemin
+Compile both source at the same time
+```
+$ harp compile;gulp dist
+```

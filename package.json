@@ -1,6 +1,6 @@
 {
   "name": "bs3harp",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "postinstall": "bower install bootstrap && gulp bs",
     "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
+    "author": "Nobuko Kodera",
     "license": "MIT",
     "devDependencies": {
       "browser-sync": "^1.7.2",
