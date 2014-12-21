@@ -38,6 +38,10 @@ and start proxying: http://localhost:9000 and http://localhost:3000
 $ npm start
 ```
 
+#### Finish using LiveReload
+
+control + c
+
 ### Compile source
 
 Compile source in /public/www

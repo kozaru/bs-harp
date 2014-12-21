@@ -13,16 +13,23 @@ var config = {
   'distHTML': './dist/',
   'distIMG': './dist/images/',
   'bsLESS': './bower/bootstrap/less/**',
+  'bsFONT': './bower/bootstrap/fonts/**',
   'bsJS': './bower/bootstrap/dist/js/bootstrap.js',
   'bsJSmin': './bower/bootstrap/dist/js/bootstrap.min.js',
   'bsJQUERY': './bower/jquery/dist/**',
   'publicLESS': './public/css/_bs/',
+  'publicFONT': './public/fonts/',
   'publicJS': './public/js/'
 }
 
 gulp.task('bsless', function() {
   return gulp.src(config.bsLESS)
   .pipe(gulp.dest(config.publicLESS));
+});
+
+gulp.task('bsfonts', function() {
+  return gulp.src(config.bsFONT)
+  .pipe(gulp.dest(config.publicFONT));
 });
 
 gulp.task('bsjs', function() {
@@ -38,6 +45,7 @@ gulp.task('bsjquery', function() {
 gulp.task('bs', function() {
   runSequence(
     'bsless',
+    'bsfonts',
     'bsjs',
     'bsjquery'
     );
