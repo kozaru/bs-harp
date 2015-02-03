@@ -17,6 +17,7 @@
       "gulp-copy": "0.0.2",
       "gulp-html-prettify": "0.0.1",
       "gulp-imagemin": "*",
-      "gulp-newer": "*"
+      "gulp-newer": "*",
+      "preen": "^1.1.3"
     }
 }

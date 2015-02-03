@@ -37,6 +37,11 @@ gulp.task('bsjs', function() {
   .pipe(gulp.dest(config.publicJS));
 });
 
+gulp.task('bsjsmin', function() {
+  return gulp.src(config.bsJSmin)
+  .pipe(gulp.dest(config.publicJS));
+});
+
 gulp.task('bsjquery', function() {
   return gulp.src(config.bsJQUERY)
   .pipe(gulp.dest(config.publicJS));
@@ -47,6 +52,7 @@ gulp.task('bs', function() {
     'bsless',
     'bsfonts',
     'bsjs',
+    'bsjsmin',
     'bsjquery'
     );
 });
