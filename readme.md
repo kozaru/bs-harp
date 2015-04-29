@@ -60,3 +60,19 @@ Compile both source at the same time
 ```
 $ harp compile;gulp dist
 ```
+
+## Change Log
+
+### v.1.1.0 (2015.4)
+
+#### add
+- gulp-csscomb
+- gulp-minify-css
+- gulp-uglify
+- .editorconfig
+- .jsbeautifyrc
+- .jshintrc
+- .tern-project
+
+#### fix or update
+- gulp-html-prettify

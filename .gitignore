@@ -1,0 +1,8 @@
+bower/*
+dist/*
+node_modules/*
+public/css/_bs/*
+public/js/*
+!public/js/custom.js
+public/fonts/*
+www/*

@@ -4,19 +4,25 @@ var prettify = require('gulp-html-prettify');
 var imagemin = require('gulp-imagemin');
 var newer = require('gulp-newer');
 var runSequence = require('run-sequence');
+var csscomb = require('gulp-csscomb');
+var minifyCss = require('gulp-minify-css');
+var uglify = require('gulp-uglify');
 
 var config = {
   'source': './www/**',
   'sourceHTML': './www/*.html',
+  'sourceCSS': './www/css/*.css',
+  'sourceJS': './www/js/*.js',
   'sourceIMG': './www/images/**',
   'dist': './dist/',
-  'distHTML': './dist/',
+  'distHTML': './dist/*.html',
+  'distCSS': './dist/css/',
+  'distJS': './dist/js/',
   'distIMG': './dist/images/',
   'bsLESS': './bower/bootstrap/less/**',
   'bsFONT': './bower/bootstrap/fonts/**',
-  'bsJS': './bower/bootstrap/dist/js/bootstrap.js',
   'bsJSmin': './bower/bootstrap/dist/js/bootstrap.min.js',
-  'bsJQUERY': './bower/jquery/dist/**',
+  'bsJQUERY': './bower/jquery/dist/jquery.min.js',
   'publicLESS': './public/css/_bs/',
   'publicFONT': './public/fonts/',
   'publicJS': './public/js/'
@@ -30,11 +36,6 @@ gulp.task('bsless', function() {
 gulp.task('bsfonts', function() {
   return gulp.src(config.bsFONT)
   .pipe(gulp.dest(config.publicFONT));
-});
-
-gulp.task('bsjs', function() {
-  return gulp.src(config.bsJS)
-  .pipe(gulp.dest(config.publicJS));
 });
 
 gulp.task('bsjsmin', function() {
@@ -51,7 +52,6 @@ gulp.task('bs', function() {
   runSequence(
     'bsless',
     'bsfonts',
-    'bsjs',
     'bsjsmin',
     'bsjquery'
     );
@@ -60,6 +60,19 @@ gulp.task('bs', function() {
 gulp.task('copysource', function() {
   return gulp.src(config.source)
   .pipe(gulp.dest(config.dist));
+});
+
+gulp.task('compresscss', function() {
+  return gulp.src(config.sourceCSS)
+    .pipe(csscomb())
+    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(gulp.dest(config.distCSS));
+});
+
+gulp.task('compressjs', function() {
+  return gulp.src(config.sourceJS)
+    .pipe(uglify())
+    .pipe(gulp.dest(config.distJS));
 });
 
 gulp.task('copyimg', function() {
@@ -71,27 +84,23 @@ gulp.task('copyimg', function() {
     .pipe(gulp.dest(config.distIMG));
 });
 
-gulp.task('copy', function() {
-  runSequence(
-    'copysource',
-    'copyimg'
-    );
-});
-
 gulp.task('pretty', function() {
-  return gulp.src(config.sourceHTML)
+  return gulp.src(config.distHTML)
   .pipe(prettify({
     indent_char: ' ',
     indent_size: 2
   }))
-  .pipe(gulp.dest(config.distHTML))
+  .pipe(gulp.dest(config.dist))
 });
 
 gulp.task('dist', function() {
   runSequence(
-    'copy',
+    'copysource',
+    'compresscss',
+    'compressjs',
+    'copyimg',
     'pretty'
-    );
+  );
 });
 
 gulp.task('watch', function() {
