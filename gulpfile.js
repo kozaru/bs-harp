@@ -6,9 +6,16 @@ var newer = require('gulp-newer');
 var runSequence = require('run-sequence');
 var csscomb = require('gulp-csscomb');
 var minifyCss = require('gulp-minify-css');
+var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
+var ext_replace = require('gulp-ext-replace');
+var del = require('del');
+
+var fs = require('fs')
+var path = require('path');
 
 var config = {
+  'relativePath': true,
   'source': './www/**',
   'sourceHTML': './www/*.html',
   'sourceCSS': './www/css/*.css',
@@ -19,6 +26,8 @@ var config = {
   'distCSS': './dist/css/',
   'distJS': './dist/js/',
   'distIMG': './dist/images/',
+  'distTemplates': 'dist/Templates/',
+  'distLibrary': 'dist/Library/',
   'bsLESS': './bower/bootstrap/less/**',
   'bsFONT': './bower/bootstrap/fonts/**',
   'bsJSmin': './bower/bootstrap/dist/js/bootstrap.min.js',
@@ -27,6 +36,75 @@ var config = {
   'publicFONT': './public/fonts/',
   'publicJS': './public/js/'
 }
+
+// extract directory
+var getFolders = function(dir) {
+  return fs.readdirSync(dir)
+    .filter(function(file) {
+      return fs.statSync(path.join(dir, file)).isDirectory();
+    });
+}
+
+function depth(pathList, addDir ,level) {
+    var dirList = getFolders(addDir);
+    for (var key in dirList){
+      var nextDir = addDir + dirList[key] + "/";
+      pathList.push(nextDir);
+      pathList = depth(pathList,nextDir,level + 1);
+    }
+  return pathList;
+}
+
+var getPathList = function (defaultPath) {
+  var pathList = [];
+  pathList.push(defaultPath);
+  pathList = depth(pathList,defaultPath,0);
+  return pathList;
+}
+
+// Convert to relative path
+var replacePath = function(base_path, target_path) {
+  var tmp_str = '';
+  base_path = base_path.split('/');
+  base_path.pop();
+  target_path = target_path.split('/');
+  while (base_path[0] === target_path[0]) {
+    base_path.shift();
+    target_path.shift();
+  }
+  for (var i = 0; i < base_path.length; i++) {
+    tmp_str += '../';
+  }
+  return tmp_str + target_path.join('/');
+}
+
+// Convert relative path in the dist directory
+var changePath = function(pathItem){
+  gulp.src(pathItem + '*.html')
+    .pipe(replace(/src="\/(\S*)"/g, function($1) {
+      var target_path = $1.replace('src="', '');
+      target_path = target_path.replace('"', '');
+      return 'src="' + replacePath('/' + pathItem.replace(config.dist, '') + '*.html', target_path) + '"';
+    }))
+    .pipe(replace(/href="\/(\S*)"/g, function($1) {
+      var target_path = $1.replace('href="', '');
+      target_path = target_path.replace('"', '');
+      return 'href="' + replacePath('/' + pathItem.replace(config.dist, '') + '*.html', target_path) + '"';
+    }))
+    .pipe(gulp.dest(pathItem));
+}
+
+// Convert relative path with gulp task
+gulp.task('changeRelativePath', function() {
+  if(config.relativePath){
+    var pathList = getPathList(config.dist);
+    for (var i in pathList) {
+      changePath(pathList[i]);
+    }
+  }
+});
+
+// bootstrap
 
 gulp.task('bsless', function() {
   return gulp.src(config.bsLESS)
@@ -65,7 +143,9 @@ gulp.task('copysource', function() {
 gulp.task('compresscss', function() {
   return gulp.src(config.sourceCSS)
     .pipe(csscomb())
-    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(minifyCss({
+      compatibility: 'ie8'
+    }))
     .pipe(gulp.dest(config.distCSS));
 });
 
@@ -85,21 +165,22 @@ gulp.task('copyimg', function() {
 });
 
 gulp.task('pretty', function() {
-  return gulp.src(config.distHTML)
-  .pipe(prettify({
-    indent_char: ' ',
-    indent_size: 2
-  }))
-  .pipe(gulp.dest(config.dist))
+  var pathList = getPathList(config.dist);
+  for (var key in pathList) {
+    gulp.src(pathList[key] + '*.html')
+      .pipe(prettify({
+        indent_char: ' ',
+        indent_size: 2
+      }))
+      .pipe(gulp.dest(pathList[key]));
+  }
 });
 
 gulp.task('dist', function() {
   runSequence(
     'copysource',
-    'compresscss',
-    'compressjs',
-    'copyimg',
-    'pretty'
+    ['compresscss','compressjs','copyimg','pretty'],
+    'changeRelativePath'
   );
 });
 

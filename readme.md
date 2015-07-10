@@ -38,6 +38,14 @@ and start proxying: http://localhost:9000 and http://localhost:3000
 $ npm start
 ```
 
+### Write the code to jade files
+
+When you write the code to jade files , there is a need to write root path.
+
+```index.jade
+img(src="/images/demo.png", alt="demo")
+```
+
 #### Finish using LiveReload
 
 control + c
@@ -52,6 +60,8 @@ $ harp compile
 
 Compile source non-minify-html in /dist
 
+If you don't need to convert relative path to the dist directory, you change config.relativePath to false in gulpfile.js.
+
 ```
 $ gulp dist
 ```
@@ -62,6 +72,9 @@ $ harp compile;gulp dist
 ```
 
 ## Change Log
+### v.1.2.0 (2015.7)
+
+It is possible to convert relative path, even if there are lower directories.
 
 ### v.1.1.0 (2015.4)
 
