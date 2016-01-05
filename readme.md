@@ -73,6 +73,11 @@ $ harp compile;gulp dist
 
 ## Change Log
 
+### v.1.3.1 (2016.1)
+
+Use gulp-cssnano instead of gulp-minify-css
+Install gulp-sourcemaps
+
 ### v.1.3.0 (2016.1)
 
 Install JS and css libraries from rpm

@@ -5,7 +5,8 @@ var imagemin = require('gulp-imagemin');
 var newer = require('gulp-newer');
 var runSequence = require('run-sequence');
 var csscomb = require('gulp-csscomb');
-var minifyCss = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
+var sourcemaps = require('gulp-sourcemaps');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
 var del = require('del');
@@ -142,9 +143,9 @@ gulp.task('copysource', function() {
 gulp.task('compresscss', function() {
   return gulp.src(config.sourceCSS)
     .pipe(csscomb())
-    .pipe(minifyCss({
-      compatibility: 'ie8'
-    }))
+    .pipe(sourcemaps.init())
+    .pipe(cssnano())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.distCSS));
 });
 
