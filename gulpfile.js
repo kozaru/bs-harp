@@ -8,7 +8,6 @@ var csscomb = require('gulp-csscomb');
 var minifyCss = require('gulp-minify-css');
 var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
-var ext_replace = require('gulp-ext-replace');
 var del = require('del');
 
 var fs = require('fs')
@@ -28,10 +27,10 @@ var config = {
   'distIMG': './dist/images/',
   'distTemplates': 'dist/Templates/',
   'distLibrary': 'dist/Library/',
-  'bsLESS': './bower/bootstrap/less/**',
-  'bsFONT': './bower/bootstrap/fonts/**',
-  'bsJSmin': './bower/bootstrap/dist/js/bootstrap.min.js',
-  'bsJQUERY': './bower/jquery/dist/jquery.min.js',
+  'bsLESS': './node_module/bootstrap/less/**',
+  'bsFONT': './node_module/bootstrap/fonts/**',
+  'bsJSmin': './node_module/bootstrap/dist/js/bootstrap.min.js',
+  'bsJQUERY': './node_module/jquery/dist/jquery.min.js',
   'publicLESS': './public/css/_bs/',
   'publicFONT': './public/fonts/',
   'publicJS': './public/js/'

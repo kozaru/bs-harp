@@ -72,6 +72,11 @@ $ harp compile;gulp dist
 ```
 
 ## Change Log
+
+### v.1.3.0 (2016.1)
+
+Install JS and css libraries from rpm
+
 ### v.1.2.0 (2015.7)
 
 It is possible to convert relative path, even if there are lower directories.
