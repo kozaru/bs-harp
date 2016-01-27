@@ -11,11 +11,11 @@ var replace = require('gulp-replace');
 var uglify = require('gulp-uglify');
 var del = require('del');
 
-var fs = require('fs')
+var fs = require('fs');
 var path = require('path');
 
 var autoprefixer = require('gulp-autoprefixer');
-
+var browserSync = require('browser-sync');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 9',
@@ -117,8 +117,15 @@ gulp.task('changeRelativePath', function() {
   }
 });
 
-// bootstrap
+// browserSync
+gulp.task('server', function () {
+  browserSync({
+    files:['./public/*.jade ,./public/*/*.jade, ./public/*.json, ./public/*/*.json, public/js/*.js,./public/js/*/*.js, ./public/css/*.less ,./public/css/*/*.less, ./public/css/*.scss ,public/css/*/*.scss'],
+    proxy: 'localhost:9000'
+  });
+});
 
+// bootstrap
 gulp.task('bsless', function() {
   return gulp.src(config.bsLESS)
   .pipe(gulp.dest(config.publicLESS));

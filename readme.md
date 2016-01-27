@@ -35,7 +35,7 @@ $ harp server
 and start proxying: http://localhost:9000 and http://localhost:3000
 
 ```
-$ npm start
+$ gulp server
 ```
 
 ### Write the code to jade files
@@ -73,6 +73,10 @@ $ harp compile;gulp dist
 
 ## Change Log
 
+### v.1.3.2 (2016.1)
+Install gulp-autoprefixer
+Use browser-sync with gulp
+
 ### v.1.3.1 (2016.1)
 
 Use gulp-cssnano instead of gulp-minify-css
@@ -80,7 +84,7 @@ Install gulp-sourcemaps
 
 ### v.1.3.0 (2016.1)
 
-Install JS and css libraries from rpm
+Install JS and css libraries from npm
 
 ### v.1.2.0 (2015.7)
 
