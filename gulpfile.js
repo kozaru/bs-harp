@@ -14,6 +14,19 @@ var del = require('del');
 var fs = require('fs')
 var path = require('path');
 
+var autoprefixer = require('gulp-autoprefixer');
+
+
+var AUTOPREFIXER_BROWSERS = [
+  'ie >= 9',
+  'ff >= 30',
+  'chrome >= 34',
+  'safari >= 7',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 4.4'
+];
+
 var config = {
   'relativePath': true,
   'source': './www/**',
@@ -144,6 +157,9 @@ gulp.task('compresscss', function() {
   return gulp.src(config.sourceCSS)
     .pipe(csscomb())
     .pipe(sourcemaps.init())
+    .pipe(autoprefixer({
+      browsers: AUTOPREFIXER_BROWSERS
+    }))
     .pipe(cssnano())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.distCSS));
