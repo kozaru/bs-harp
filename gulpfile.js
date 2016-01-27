@@ -15,7 +15,7 @@ var fs = require('fs');
 var path = require('path');
 
 var autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync').create();
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 9',
@@ -118,11 +118,13 @@ gulp.task('changeRelativePath', function() {
 });
 
 // browserSync
+// use default task to launch Browsersync and watch files
 gulp.task('server', function () {
-  browserSync({
-    files:['./public/*.jade ,./public/*/*.jade, ./public/*.json, ./public/*/*.json, public/js/*.js,./public/js/*/*.js, ./public/css/*.less ,./public/css/*/*.less, ./public/css/*.scss ,public/css/*/*.scss'],
+  browserSync.init({
     proxy: 'localhost:9000'
   });
+  // all browsers reload after tasks are complete.
+  gulp.watch(['./public/**/*']).on('change', browserSync.reload);
 });
 
 // bootstrap
