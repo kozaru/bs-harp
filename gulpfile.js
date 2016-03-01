@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var copy = require('gulp-copy');
 var prettify = require('gulp-html-prettify');
 var imagemin = require('gulp-imagemin');
+var pngquant  = require('imagemin-pngquant');
 var newer = require('gulp-newer');
 var runSequence = require('run-sequence');
 var csscomb = require('gulp-csscomb');
@@ -181,10 +182,10 @@ gulp.task('compressjs', function() {
 });
 
 gulp.task('copyimg', function() {
-  return gulp.src(config.sourceIMG)
-    .pipe(newer(config.distIMG))
+  return gulp.src(config.sourceIMG + '/{,**/}*.{png,jpg,gif}')
     .pipe(imagemin({
-      optimizationLevel: 3
+        progressive: true,
+        use: [pngquant({quality: '65-80', speed: 1})]
     })) // See gulp-imagemin page.
     .pipe(gulp.dest(config.distIMG));
 });
