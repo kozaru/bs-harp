@@ -1,7 +1,9 @@
 {
   "index": {
     "pagename": "Home",
-    "date": "2015-05-10"
+    "description": "説明文",
+    "keywords": "キーワード",
+    "ogpurl": "ogp.png"
   },
   "about": {
     "pagename": "About",
